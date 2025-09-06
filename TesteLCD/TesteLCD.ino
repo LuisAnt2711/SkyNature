@@ -24,12 +24,12 @@ void setup() {
 
 void loop() {
   
-  lcd.clear();
-  lcd.setCursor(2, 0);             // Define posição coluna 0 - 16, linha 0 - 1
-  lcd.print("PROJETE 2025");       // Escreve na primeira linha e inicia na primeira coluna
-  lcd.setCursor(1, 1);             // Define posição coluna 1, linha 1
-  lcd.print("EQUIPE: MT1503");     // Escreve na segunda linha
-  delay(3000);
+  // lcd.clear();
+  // lcd.setCursor(2, 0);             // Define posição coluna 0 - 16, linha 0 - 1
+  // lcd.print("PROJETE 2025");       // Escreve na primeira linha e inicia na primeira coluna
+  // lcd.setCursor(1, 1);             // Define posição coluna 1, linha 1
+  // lcd.print("EQUIPE: MT1503");     // Escreve na segunda linha
+  // delay(3000);
 
   lcd.clear();
   lcd.setCursor(0, 0);             
