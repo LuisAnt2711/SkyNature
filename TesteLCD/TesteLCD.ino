@@ -5,8 +5,8 @@ Pinagem:
 I2C	  Arduino UNO
 GND 	GND
 VCC	  5V
-SDA	  A4
-SCL	  A5
+SDA	  D20
+SCL	  D21
 */
 
 #include <Wire.h> 	//Biblioteca que permite a comunicação via I2C
