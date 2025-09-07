@@ -2,7 +2,7 @@
 //Instalar biblioteca: LiquidCrystal_I2C
 /*
 Pinagem: 
-I2C	  Arduino UNO
+I2C	  Arduino Mega 2560
 GND 	GND
 VCC	  5V
 SDA	  D20
