@@ -1,3 +1,4 @@
+//EQUIPE 1503 PROJETE 2025
 //Código para utilização do Display LCD 16x2 I2C
 //Instalar biblioteca: LiquidCrystal_I2C
 /*
