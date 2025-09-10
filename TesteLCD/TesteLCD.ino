@@ -39,3 +39,5 @@ void loop() {
   delay(3000);
 
 }
+
+//Esse código foi feito para testar o LCD
