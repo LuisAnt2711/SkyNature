@@ -41,3 +41,4 @@ void loop() {
 }
 
 //Esse código foi feito para testar o LCD
+
