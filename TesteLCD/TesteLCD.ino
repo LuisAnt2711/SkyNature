@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-=======
 //EQUIPE 1503 PROJETE 2025
 //Código para utilização do Display LCD 16x2 I2C
 //Instalar biblioteca: LiquidCrystal_I2C
@@ -13,45 +9,36 @@ VCC	  5V
 SDA	  D20
 SCL	  D21
 */
->>>>>>> 34d271d043c4e5e2d2cd1aeaf666dc126628df40
 
-// Inicializa o LCD no endereço 0x27 (com 16 colunas e 2 linhas)
+#include <Wire.h> 	//Biblioteca que permite a comunicação via I2C
+#include <LiquidCrystal_I2C.h>	//Biblioteca do I2C
+
+// Endereço I2C do display
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// Pino analógico conectado ao LM35
-const int lm35Pin = A0;
-
 void setup() {
-  // Inicializa o LCD
-  lcd.init();
-  lcd.backlight();
 
-  // Mensagem de inicialização
-  lcd.setCursor(0, 0);
-  lcd.print("Temp do ar");
-  delay(2000);
-  lcd.clear();
+lcd.init();                      // Inicializa o LCD
+lcd.backlight();                 // Liga a luz de fundo
+
 }
 
 void loop() {
-  // Leitura analógica do LM35
-  int valorAnalogico = analogRead(lm35Pin);
 
-  // Converte a leitura para temperatura (em Celsius)
-  float temperaturaC = (valorAnalogico * 5.0 * 100.0) / 1023.0;
+lcd.clear();
+lcd.setCursor(2, 0);             // Define posição coluna 0 - 16, linha 0 - 1
+lcd.print("PROJETE 2025");       // Escreve na primeira linha e inicia na primeira coluna
+lcd.setCursor(1, 1);             // Define posição coluna 1, linha 1
+lcd.print("EQUIPE: MT1503");     // Escreve na segunda linha
+delay(3000);
 
-  // Exibe no LCD
-  lcd.setCursor(0, 0);
-  lcd.print("Temp: ");
-  lcd.print(temperaturaC, 1);  // 1 casa decimal
-  lcd.print((char)223);        // Símbolo de grau
-  lcd.print("C   ");
+lcd.clear();
+lcd.setCursor(0, 0);             
+lcd.print("ProjetoSKYNATURE");       
+lcd.setCursor(1, 1);             
+lcd.print("HORTA VERTICAL");      
+delay(3000);
 
-  delay(1000);  // Atualiza a cada segundo
 }
-<<<<<<< HEAD
-=======
 
 //Esse código foi feito para testar o LCD
-
->>>>>>> 34d271d043c4e5e2d2cd1aeaf666dc126628df40
