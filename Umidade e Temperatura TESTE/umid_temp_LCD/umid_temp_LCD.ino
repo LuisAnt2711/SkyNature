@@ -14,9 +14,9 @@ void setup() {
   
 // Mensagem de inicialização
   lcd.setCursor(0, 0);
-  lcd.print("TemperaturaDoAr");
+  lcd.print("Temp.Ambiente");
   lcd.setCursor(0, 1);
-  lcd.print("UmidadeDoSolo");
+  lcd.print("Umidade Do Solo");
   delay(3000);
   lcd.clear();
 
@@ -33,16 +33,16 @@ void loop() {
   float umidS = (valorA7 * 100.0) / 1023.0;         //Umidade
 
 //Escreve os valores no Serial Monitor a cada 1 segundo
-  lcd.setCursor(14, 0);
+  lcd.setCursor(14, 0);   //Mostra a plantação selecionada
   lcd.print("P1");
 
-  lcd.setCursor(0, 0);
+  lcd.setCursor(0, 0);   //Mostra a temperatura ambiente
   lcd.print("Temp: ");
   lcd.print(tempC, 1);
   lcd.print((char)223); 
   lcd.print("C ");
 
-  lcd.setCursor(0, 1);
+  lcd.setCursor(0, 1);   //Mostra a umidade da plantação
   lcd.print("Umidade: ");
   lcd.print(umidS, 1);
   lcd.print("%  ");
