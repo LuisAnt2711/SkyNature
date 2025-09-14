@@ -31,3 +31,5 @@ void loop() {
   delay(1000);
 
 }
+//Por causa de utilizar um trimpot no lugar do Sensor de temperatura, o trimpot pode desrregular o valor emitido pelo LM35
+//Então quando for testar algo relacionado ao LM35, deixe o Trimpot zerado no circuito
