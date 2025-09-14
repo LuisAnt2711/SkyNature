@@ -1,6 +1,3 @@
-]
-
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
@@ -34,7 +31,7 @@ void loop() {
   lcd.print("Temp: ");
   lcd.print(temperaturaC, 1);  // 1 casa decimal
   lcd.print((char)223);        // Símbolo de grau
-  lcd.print("C   ");
+  lcd.print("C");
 
   delay(1000);  // Atualiza a cada segundo
 }
