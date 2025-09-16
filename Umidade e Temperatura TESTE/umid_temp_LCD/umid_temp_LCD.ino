@@ -1,3 +1,11 @@
+/*
+PROJETE 2025
+EQUIPE MT1503
+HORTA VERTICAL
+CÓDIGO PARA TESTE DE LCD COM MÚLTIPLOS SENSORES
+*/
+
+//Configura o Display LCD e as bibliotecas
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -30,7 +38,7 @@ void loop() {
 
 //Caucula o valor de cada um dos sensores
   float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
-  float umidS = (((valorA7 * 100.0) / 1023.0) - 100)*(-1);         //Umidade
+  float umidS = (((valorA7 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
 
 //Escreve os valores no Serial Monitor a cada 1 segundo
   lcd.setCursor(14, 0);   //Mostra a plantação selecionada
