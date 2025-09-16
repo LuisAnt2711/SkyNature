@@ -3,7 +3,7 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Dá nome ás entradas
-const int trimpot = A7;   //Umidade (Trimpot)
+const int trimpot = A7;   //Umidade (Sensor)
 const int lm35pin = A0;   //Temperatura (LM35)
 
 void setup() {
@@ -30,7 +30,7 @@ void loop() {
 
 //Caucula o valor de cada um dos sensores
   float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
-  float umidS = (valorA7 * 100.0) / 1023.0;         //Umidade
+  float umidS = (((valorA7 * 100.0) / 1023.0) - 100)*(-1);         //Umidade
 
 //Escreve os valores no Serial Monitor a cada 1 segundo
   lcd.setCursor(14, 0);   //Mostra a plantação selecionada
@@ -50,5 +50,3 @@ void loop() {
   delay(1000);
 
 }
-//Por causa de utilizar um trimpot no lugar do Sensor de temperatura, o trimpot pode desrregular o valor emitido pelo LM35
-//Então quando for testar algo relacionado ao LM35, deixe o Trimpot zerado no circuito
