@@ -11,7 +11,9 @@ CÓDIGO PARA TESTE DE LCD COM MÚLTIPLOS SENSORES
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Dá nome ás entradas
-const int trimpot = A7;   //Umidade (Sensor)
+const int sensorP1 = A7;   //Umidade (Sensor)
+const int sensorP2 = A6;   //Umidade (Sensor)
+const int sensorP3 = A5;   //Umidade (Sensor)
 const int lm35pin = A0;   //Temperatura (LM35)
 
 void setup() {
@@ -34,12 +36,36 @@ void loop() {
 
 // Atribui uma variável para cada entrada
   int valorA0 = analogRead(lm35pin);   //Temperatura
-  int valorA7 = analogRead(trimpot);   //Umidade
+  int valorA7 = analogRead(sensorP1);   //Umidade
+  int valorA6 = analogRead(sensorP2);   //Umidade
+  int valorA5 = analogRead(sensorP3);   //Umidade
 
 //Caucula o valor de cada um dos sensores
   float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
-  float umidS = (((valorA7 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
+  float umidP1 = (((valorA7 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
+  float umidP2 = (((valorA6 * 100.0) / 1023.0) - 100.0)*(-1.0);
+  float umidP3 = (((valorA5 * 100.0) / 1023.0) - 100.0)*(-1.0);
 
+//Escreve os valores dos três sensore (PLACEHOLDER)
+  lcd.setCursor(0,0);
+  lcd.print("P1:");
+  lcd.print(umidP1,1);
+  lcd.print("%");
+  lcd.print("P2:");
+  lcd.print(umidP2,1);
+  lcd.print("%");
+  lcd.setCursor(0,1);
+  lcd.print("P3:");
+  lcd.print(umidP3,1);
+  lcd.print("%");
+  lcd.print("TA:");
+  lcd.print(tempC,1);
+  lcd.print((char)223);
+  lcd.print("C");
+  delay(1000);
+
+
+/*
 //Escreve os valores no Serial Monitor a cada 1 segundo
   lcd.setCursor(14, 0);   //Mostra a plantação selecionada
   lcd.print("P1");
@@ -57,6 +83,7 @@ void loop() {
 
   delay(1000);
 
+*/
 }
  /*
 
