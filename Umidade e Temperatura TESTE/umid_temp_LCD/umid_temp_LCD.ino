@@ -53,7 +53,7 @@ void loop() {
   lcd.print("%");
   lcd.print("P2:");
   lcd.print(umidP2,1);
-  lcd.print("%");
+  lcd.print("%  ");
   lcd.setCursor(0,1);
   lcd.print("P3:");
   lcd.print(umidP3,1);
