@@ -11,9 +11,9 @@ CÓDIGO PARA TESTE DE LCD COM MÚLTIPLOS SENSORES
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Dá nome ás entradas
-const int sensorP1 = A7;   //Umidade (Sensor)
-const int sensorP2 = A6;   //Umidade (Sensor)
-const int sensorP3 = A5;   //Umidade (Sensor)
+const int sensorP1 = A15;   //Umidade (Sensor)
+const int sensorP2 = A10;   //Umidade (Sensor)
+const int sensorP3 = A3;   //Umidade (Sensor)
 const int lm35pin = A0;   //Temperatura (LM35)
 
 void setup() {
