@@ -19,11 +19,20 @@ const int botaoselect = 2;   //Botão de seleção
 int selected;
 float umidLCD;
 
+//Cpnfiguração dos pinos do sensor de nível d'água
+int sensornivel = 3;  //pino do sensor
+int pino_led_cheio = 6;  //led vermelho (vazio)
+int pino_led_vazio = 7;  //led verde (cheio)
 
 void setup() {
 
 //Configuração do botão
   pinMode(2,INPUT);
+
+//Configuração do sensor de nível d'água
+  pinMode(sensornivel, INPUT);
+  pinMode(pino_led_cheio, OUTPUT);
+  pinMode(pino_led_vazio, OUTPUT);
 
 // Inicializa o LCD
   lcd.init();
@@ -31,15 +40,18 @@ void setup() {
   
 // Mensagem de inicialização
   lcd.setCursor(0, 0);
-  lcd.print("TESTE SENSORES");
+  lcd.print("   SKY NATURE");
   lcd.setCursor(0, 1);
-  lcd.print("PLACEHOLDER");
+  lcd.print("     MT1503");
   delay(3000);
   lcd.clear();
 
 }
 
 void loop() {
+
+// Atribui uma variável ao sensor de nível d'água
+  int estado = digitalRead(sensornivel);
 
 // Atribui uma variável para cada entrada
   int valorA0 = analogRead(lm35pin);   //Temperatura
@@ -53,6 +65,16 @@ void loop() {
   float umidP1 = (((valorA15 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
   float umidP2 = (((valorA10 * 100.0) / 1023.0) - 100.0)*(-1.0);
   float umidP3 = (((valorA8 * 100.0) / 1023.0) - 100.0)*(-1.0);
+
+//Determina o estado do nível d'água
+  if(estado == 1){
+    digitalWrite(pino_led_vazio, HIGH);
+    digitalWrite(pino_led_cheio, LOW);
+  }
+  else{
+    digitalWrite(pino_led_vazio, LOW);
+    digitalWrite(pino_led_cheio, HIGH);
+  }
 
 //Determina a plantação selecionada
   if(selected == 0){
