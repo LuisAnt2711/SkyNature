@@ -37,9 +37,6 @@ void setup() {
   delay(3000);
   lcd.clear();
 
-//Variável para a seleção
-  selected = 1;
-
 }
 
 void loop() {
@@ -57,7 +54,7 @@ void loop() {
   float umidP2 = (((valorA10 * 100.0) / 1023.0) - 100.0)*(-1.0);
   float umidP3 = (((valorA8 * 100.0) / 1023.0) - 100.0)*(-1.0);
 
-//Calcula a plantação selecionada
+//Determina a plantação selecionada
   if(selected == 0){
     selected = 1;
   }
@@ -97,7 +94,7 @@ void loop() {
 
   lcd.setCursor(0, 1);   //Mostra a umidade da plantação
   lcd.print("Umidade: ");
-  lcd.print(umidLCD, 1);
+  lcd.print(umidLCD, 2);
   lcd.print("%  ");
 
   delay(500);
