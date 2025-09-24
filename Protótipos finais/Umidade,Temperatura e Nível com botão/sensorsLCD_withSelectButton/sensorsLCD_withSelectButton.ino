@@ -55,13 +55,18 @@ void loop() {
 
 // Atribui uma variável para cada entrada
   int valorA0 = analogRead(lm35pin);   //Temperatura
+  delay(200);
   int valorA15 = analogRead(sensorP1);   //Umidade
+  delay(200);
   int valorA10 = analogRead(sensorP2);   //Umidade
+  delay(200);
   int valorA8 = analogRead(sensorP3);   //Umidade
+  delay(200);
   int valorB2 = digitalRead(botaoselect);  //Botão de seleção
 
 //Caucula o valor de cada um dos sensores
-  float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
+  //float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
+  float tempC = ((valorA0 * (5.0 / 1023.0)) / 0.01)-14.63;   //Temperatura
   float umidP1 = (((valorA15 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
   float umidP2 = (((valorA10 * 100.0) / 1023.0) - 100.0)*(-1.0);
   float umidP3 = (((valorA8 * 100.0) / 1023.0) - 100.0)*(-1.0);
@@ -118,8 +123,6 @@ void loop() {
   lcd.print("Umidade: ");
   lcd.print(umidLCD, 2);
   lcd.print("%  ");
-
-  delay(500);
 
 }
 /*
