@@ -72,6 +72,6 @@ void desligarIrrigacao(int mangueira) {
 
   // Se ambas as válvulas estiverem fechadas → desliga bomba
   if (digitalRead(RELAY_VALVULA_1) == LOW && digitalRead(RELAY_VALVULA_2) == LOW) {
-    digitalWrite(RELAY_BOMBA, LOW);
-  }
+    digitalWrite(RELAY_BOMBA, LOW);
+  }
 }
