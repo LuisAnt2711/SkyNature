@@ -28,6 +28,7 @@ void setup() {
 
 //Configuração do botão
   pinMode(2,INPUT);
+  selected = 1;
 
 //Configuração do sensor de nível d'água
   pinMode(sensornivel, INPUT);
