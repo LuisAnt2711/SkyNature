@@ -1,8 +1,8 @@
 /* 
 PROJETE 2025
 EQUIPE MT1503
-HORTA VERTICAL
-CÓDIGO ATUALIZADO — SISTEMA DE IRRIGAÇÃO AUTOMÁTICA
+HORTA VERTICAL - SKYNATURE
+SENSORES DE UMIDADE, SENSOR DE TEMPERATURA, SENSOR DE NÍVEL D'ÁGUA E DISPLAY LCD
 2 RECIPIENTES COM DUAS BOMBAS 12V CONTROLADAS POR RELÉS
 */
 
@@ -42,8 +42,8 @@ void setup() {
   pinMode(rele_bomba2, OUTPUT);
 
 // Relés desligados inicialmente
-  digitalWrite(rele_bomba1, HIGH); // Relé inativo (HIGH = desligado em módulos com lógica inversa)
-  digitalWrite(rele_bomba2, HIGH);
+  digitalWrite(rele_bomba1, LOW); // Relé inativo
+  digitalWrite(rele_bomba2, LOW);
 
 // Inicializa LCD
   lcd.init();
@@ -82,7 +82,8 @@ void loop() {
   if (estadoNivel == 1) { // tanque cheio
     digitalWrite(pino_led_vazio, HIGH);
     digitalWrite(pino_led_cheio, LOW);
-  } else { // tanque vazio
+  } 
+  else { // tanque vazio
     digitalWrite(pino_led_vazio, LOW);
     digitalWrite(pino_led_cheio, HIGH);
   }
@@ -101,26 +102,26 @@ void loop() {
 
   // Recipiente 1
     if (umidP1 < limiteBaixo) {
-      digitalWrite(rele_bomba1, LOW); // Liga bomba 1 (ativo em LOW)
+      digitalWrite(rele_bomba1, HIGH); // Liga bomba 1
     }
     else if (umidP1 > limiteAlto) {
-      digitalWrite(rele_bomba1, HIGH); // Desliga bomba 1
+      digitalWrite(rele_bomba1, LOW); // Desliga bomba 1
     }
 
 
   // Recipiente 2
     if (umidP2 < limiteBaixo) {
-      digitalWrite(rele_bomba2, LOW); // Liga bomba 2
+      digitalWrite(rele_bomba2, HIGH); // Liga bomba 2
     } 
     else if (umidP2 > limiteAlto) {
-      digitalWrite(rele_bomba2, HIGH); // Desliga bomba 2
+      digitalWrite(rele_bomba2, LOW); // Desliga bomba 2
     }
 
   } 
   else {
   // Tanque vazio → desliga tudo
-    digitalWrite(rele_bomba1, HIGH);
-    digitalWrite(rele_bomba2, HIGH);
+    digitalWrite(rele_bomba1, LOW);
+    digitalWrite(rele_bomba2, LOW);
   }
 
 // Exibição no LCD
@@ -139,3 +140,13 @@ void loop() {
   lcd.print(umidLCD, 1);
   lcd.print("%   ");
 }
+/*
+
+000000  000000  000000  000000  000000  000000  000000          000000  000000  000000  000000
+000000  000000  000000  000000  000000  000000  000000          000000  000000  000000  000000
+00  00  00  00  00  00     000  000       00    000                000  00  00     000  000    
+000000  000000  00  00     000  000000    00    000000          000000  00  00  000000  000000
+000     0000    00  00  0  000  000       00    000             000     00  00  000        000
+000     00  00  000000  000000  000000    00    000000          000000  000000  000000  000000
+
+*/
