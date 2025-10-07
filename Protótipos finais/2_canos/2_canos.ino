@@ -27,7 +27,7 @@ int pino_led_vazio = 7;  //led verde (cheio)
 void setup() {
 
 //Configuração do botão
-  pinMode(2,INPUT);
+  pinMode(botaoselect,INPUT);
   selected = 1;
 
 //Configuração do sensor de nível d'água
@@ -64,7 +64,6 @@ void loop() {
   int valorB2 = digitalRead(botaoselect);  //Botão de seleção
 
 //Caucula o valor de cada um dos sensores
-  //float tempC = (valorA0 * 5.0 * 100.0) / 1023.0;   //Temperatura
   float tempC = ((valorA0 * (5.0 / 1023.0)) / 0.01)-14.63;   //Temperatura
   float umidP1 = (((valorA15 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
   float umidP2 = (((valorA10 * 100.0) / 1023.0) - 100.0)*(-1.0);
