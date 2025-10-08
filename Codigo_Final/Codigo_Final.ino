@@ -4,6 +4,7 @@ EQUIPE MT1503
 HORTA VERTICAL
 CÓDIGO PARA TESTE DE LCD COM MÚLTIPLOS SENSORES E BOTÃO DE SELEÇÃO
 2 RECIPIENTES
+IRRIGAÇÃO AUTOMÁTICA COM 2 BOMBAS E 2 RELÉS
 */
 
 //Configura o Display LCD e as bibliotecas
@@ -16,10 +17,17 @@ const int sensorP1 = A15;   //Umidade (Sensor)
 const int sensorP2 = A10;   //Umidade (Sensor)
 const int lm35pin = A0;   //Temperatura (LM35)
 const int botaoselect = 2;   //Botão de seleção
-int selected;
-float umidLCD;
+const int rele1 = 8;  // Relé da bomba 1
+const int rele2 = 9;  // Relé da bomba 2
 
-//Cpnfiguração dos pinos do sensor de nível d'água
+// Variáveis de seleção
+int selected;  //Recipiente selecionado pelo botão
+float umidLCD;  //Valor de umidade mostrado no LCD
+
+// Limites dos sensores de umidade
+const int umidade_minima = 30;
+
+//Configuração dos pinos do sensor de nível d'água
 int sensornivel = 3;  //pino do sensor
 int pino_led_cheio = 6;  //led vermelho (vazio)
 int pino_led_vazio = 7;  //led verde (cheio)
@@ -55,11 +63,11 @@ void loop() {
 
 // Atribui uma variável para cada entrada
   int valorA0 = analogRead(lm35pin);   //Temperatura
-  delay(200);
+  delay(150);
   int valorA15 = analogRead(sensorP1);   //Umidade
-  delay(200);
+  delay(150);
   int valorA10 = analogRead(sensorP2);   //Umidade
-  delay(200);
+  delay(150);
   int valorB2 = digitalRead(botaoselect);  //Botão de seleção
 
 //Caucula o valor de cada um dos sensores
@@ -103,6 +111,29 @@ void loop() {
       break;
   }
 
+// Verifica umidade e ativa bombas se necessário
+  if (umidP1 < umidade_minima) {  //Solo 1 está seco
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Plantação 1 seca");
+    lcd.print("Ativando bomba 1");
+    digitalWrite(rele1, HIGH);
+    delay(5000);
+    digitalWrite(rele1, LOW);
+    lcd.clear();
+  }
+
+  if (umidP2 < umidade_minima) {  //Solo 2 está seco
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Plantação 2 seca");
+    lcd.print("Ativando bomba 2");
+    digitalWrite(rele2, HIGH);
+    delay(5000);
+    digitalWrite(rele2, LOW);
+    lcd.clear();
+  }
+
 //Mostra os valores no Display LCD
   lcd.setCursor(14, 0);   //Mostra a plantação selecionada
   lcd.print("P");
@@ -118,6 +149,8 @@ void loop() {
   lcd.print("Umidade: ");
   lcd.print(umidLCD, 2);
   lcd.print("%  ");
+
+  delay(50);
 
 }
 /*
