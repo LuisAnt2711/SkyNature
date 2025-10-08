@@ -1,77 +1,62 @@
-// === Definições de pinos ===
-#define SENSOR_UMIDADE_1 A0 // Sensor de umidade do solo 1
-#define SENSOR_UMIDADE_2 A1 // Sensor de umidade do solo 2m
+// Pinos dos relés conectados ao Arduino
+const int rele1 = 8;  // Relé da bomba 1
+const int rele2 = 9;  // Relé da bomba 2
 
-#define RELAY_BOMBA 8      // Relé da bomba
-#define RELAY_VALVULA_1 9  // Relé da válvula 1
-#define RELAY_VALVULA_2 10 // Relé da válvula 2
+// Sensores de umidade do solo
+const int sensor1 = A15;  // Sensor 1 controla bomba 1
+const int sensor2 = A10;  // Sensor 2 controla bomba 2
 
-// === Limite de umidade (ajuste conforme o sensor) ===
-#define LIMITE_UMIDADE 400  
+// Limites do sensor (ajuste conforme seu sensor)
+const int sensorSeco = 1023;  // Valor lido quando o solo está seco
+const int sensorMolhado = 300; // Valor lido quando o solo está totalmente úmido
 
-// Variáveis de leitura
-int umidade_1, umidade_2;
+// Limiar de umidade em percentual para acionar a bomba
+const int umidadeMinimaPercentual = 30;  // Aciona bomba se umidade < 30%
 
 void setup() {
-  pinMode(RELAY_BOMBA, OUTPUT);
-  pinMode(RELAY_VALVULA_1, OUTPUT);
-  pinMode(RELAY_VALVULA_2, OUTPUT);
+  pinMode(rele1, OUTPUT);
+  pinMode(rele2, OUTPUT);
 
-  // Inicializa todos desligados
-  digitalWrite(RELAY_BOMBA, LOW);
-  digitalWrite(RELAY_VALVULA_1, LOW);
-  digitalWrite(RELAY_VALVULA_2, LOW);
+  digitalWrite(rele1, LOW);
+  digitalWrite(rele2, LOW);
 
   Serial.begin(9600);
 }
 
 void loop() {
-  // === Leitura dos sensores ===
-  umidade_1 = analogRead(SENSOR_UMIDADE_1);
-  umidade_2 = analogRead(SENSOR_UMIDADE_2);
+  // Lê os sensores
+  int leitura1 = analogRead(sensor1);
+  int leitura2 = analogRead(sensor2);
 
-  // Debug no monitor serial
+  // Converte para percentual (100% úmido, 0% seco)
+  int umidade1 = map(leitura1, sensorSeco, sensorMolhado, 0, 100);
+  int umidade2 = map(leitura2, sensorSeco, sensorMolhado, 0, 100);
+
+  // Limita os valores entre 0 e 100
+  umidade1 = constrain(umidade1, 0, 100);
+  umidade2 = constrain(umidade2, 0, 100);
+
+  // Mostra no monitor serial
   Serial.print("Umidade 1: ");
-  Serial.println(umidade_1);
-  Serial.print("Umidade 2: ");
-  Serial.println(umidade_2);
+  Serial.print(umidade1);
+  Serial.print("%  |  Umidade 2: ");
+  Serial.print(umidade2);
+  Serial.println("%");
 
-  // === Controle da irrigação ===
-  if (umidade_1 < LIMITE_UMIDADE) {
-    acionarIrrigacao(1);
-  } else {
-    desligarIrrigacao(1);
+  // Verifica umidade e ativa bombas se necessário
+  if (umidade1 < umidadeMinimaPercentual) {
+    Serial.println("Solo seco no sensor 1. Ativando bomba 1.");
+    digitalWrite(rele1, HIGH);
+    delay(5000);
+    digitalWrite(rele1, LOW);
   }
 
-  if (umidade_2 < LIMITE_UMIDADE) {
-    acionarIrrigacao(2);
-  } else {
-    desligarIrrigacao(2);
+  if (umidade2 < umidadeMinimaPercentual) {
+    Serial.println("Solo seco no sensor 2. Ativando bomba 2.");
+    digitalWrite(rele2, HIGH);
+    delay(5000);
+    digitalWrite(rele2, LOW);
   }
 
-  delay(1000); // Espera 1s
-}
-
-// === Funções auxiliares ===
-void acionarIrrigacao(int mangueira) {
-  digitalWrite(RELAY_BOMBA, HIGH); // Liga a bomba
-
-  if (mangueira == 1) {
-    digitalWrite(RELAY_VALVULA_1, HIGH); // Abre válvula 1
-  } else if (mangueira == 2) {
-    digitalWrite(RELAY_VALVULA_2, HIGH); // Abre válvula 2
-  }
-}
-
-void desligarIrrigacao(int mangueira) {
-  if (mangueira == 1) {
-    digitalWrite(RELAY_VALVULA_1, LOW);
-  } else if (mangueira == 2) {
-    digitalWrite(RELAY_VALVULA_2, LOW);
-  }
-
-  // Se ambas as válvulas estiverem fechadas → desliga bomba
-  if (digitalRead(RELAY_VALVULA_1) == LOW && digitalRead(RELAY_VALVULA_2) == LOW) {
-    digitalWrite(RELAY_BOMBA, LOW);
-  }
+  delay(2000); // Tempo entre leituras
 }
