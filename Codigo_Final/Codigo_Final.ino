@@ -37,6 +37,12 @@ void setup() {
 //Configuração do botão
   pinMode(botaoselect,INPUT);
   selected = 1;
+//Configuração dos relés
+  pinMode(rele1, OUTPUT);
+  pinMode(rele2, OUTPUT);
+
+  digitalWrite(rele1, LOW);
+  digitalWrite(rele2, LOW);
 
 //Configuração do sensor de nível d'água
   pinMode(sensornivel, INPUT);
@@ -71,7 +77,7 @@ void loop() {
   int valorB2 = digitalRead(botaoselect);  //Botão de seleção
 
 //Caucula o valor de cada um dos sensores
-  float tempC = ((valorA0 * (5.0 / 1023.0)) / 0.01)-14.63;   //Temperatura
+  float tempC = ((valorA0 * (5.0 / 1023.0)) / 0.01)-5.63;   //Temperatura
   float umidP1 = (((valorA15 * 100.0) / 1023.0) - 100.0)*(-1.0);         //Umidade
   float umidP2 = (((valorA10 * 100.0) / 1023.0) - 100.0)*(-1.0);
 
@@ -115,7 +121,8 @@ void loop() {
   if (umidP1 < umidade_minima) {  //Solo 1 está seco
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Plantação 1 seca");
+    lcd.print("Plantacao 1 seca");
+    lcd.setCursor(0, 1);
     lcd.print("Ativando bomba 1");
     digitalWrite(rele1, HIGH);
     delay(5000);
@@ -126,7 +133,8 @@ void loop() {
   if (umidP2 < umidade_minima) {  //Solo 2 está seco
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Plantação 2 seca");
+    lcd.print("Plantacao 2 seca");
+    lcd.setCursor(0, 1);
     lcd.print("Ativando bomba 2");
     digitalWrite(rele2, HIGH);
     delay(5000);
